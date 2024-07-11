@@ -1,12 +1,12 @@
 public class Vendedor
 {
-    private int id { get; }
+    private Guid id { get; }
     private string nombre { get; set; }
     private string numeroTelefono { get; set;}
 
-    public Vendedor(int id, string nombre, string numeroTelefono)
+    public Vendedor(string nombre, string numeroTelefono)
     {
-        this.id = id;
+        id = Guid.NewGuid();
         this.nombre = nombre;
         this.numeroTelefono = numeroTelefono;
     }
