@@ -1,11 +1,11 @@
 public class Ventas
 {
 
-    private Guid id { get;}
-    private DateTime fecha { get; set;}
-    private List<Dictionary<string,object>> cantidadProductos { get; set; }
-    private Vendedor vendedor { get; set;}
-    private Comprador comprador { get; set; }
+    public Guid id { get; }
+    public DateTime fecha { get; set; }
+    public List<Dictionary<string, object>> cantidadProductos { get; set; }
+    public Vendedor vendedor { get; set; }
+    public Comprador comprador { get; set; }
 
     public Ventas(List<Dictionary<string, object>> cantidadProductos, Vendedor vendedor, Comprador comprador)
     {
@@ -14,5 +14,11 @@ public class Ventas
         this.cantidadProductos = cantidadProductos;
         this.vendedor = vendedor;
         this.comprador = comprador;
-    }    
-} 
+    }
+
+
+    public void calcularValorTotal(){
+        
+    }
+
+}

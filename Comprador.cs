@@ -1,8 +1,8 @@
 public class Comprador
 {
-    private Guid id { get; }
-    private string nombre { get; set; }
-    private string numeroTelefono { get; set; }
+    public Guid id { get; }
+    public string nombre { get; set; }
+    public string numeroTelefono { get; set; }
 
     public Comprador(string nombre, string numeroTelefono){
         id =  Guid.NewGuid();;

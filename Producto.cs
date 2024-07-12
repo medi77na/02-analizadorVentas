@@ -1,9 +1,9 @@
 public class Producto
 {
-    private Guid id { get; }
-    private string nombre { get; set; }
-    private double precio { get; set; }
-    private int tiempoGarantia { get; set; }
+    public Guid id { get; }
+    public string nombre { get; set; }
+    public double precio { get; set; }
+    public int tiempoGarantia { get; set; }
 
     public Producto(string nombre, double precio, int tiempoGarantia)
     {
@@ -11,9 +11,5 @@ public class Producto
         this.nombre = nombre;
         this.precio = precio;
         this.tiempoGarantia = tiempoGarantia;
-    }
-
- 
-
-    
+    }    
 }
