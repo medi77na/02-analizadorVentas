@@ -176,7 +176,7 @@ Comprador: {venta.comprador.nombre}");
         void mostrarMenu()
         {
 
-            string op = "0";
+            string? op = "0";
 
             do
             {
