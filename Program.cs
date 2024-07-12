@@ -1,4 +1,7 @@
-﻿partial class Program
+﻿using System.Globalization;
+using System.Runtime.CompilerServices;
+
+partial class Program
 {
     public static void Main(string[] args)
     {
@@ -48,7 +51,97 @@
 
         }
 
-        void crearFactura()
+        void ventasDefinidas()
+        {
+            List<Dictionary<string, object>> listaProductoCantidad = new List<Dictionary<string, object>>();
+
+            var diccionarioProductosVenta = new Dictionary<string, object>(){
+                { "producto", "Mouse"},
+                { "precio", 20.0},
+                { "tiempoGarantia", 15},
+                { "cantidad", 5}
+            };
+            listaProductoCantidad.Add(diccionarioProductosVenta);
+
+            Ventas venta = new Ventas(listaProductoCantidad, listaVendedores[0], listaCompradores[1]);
+            listaVentas.Add(venta);
+
+
+            List<Dictionary<string, object>> listaProductoCantidad2 = new List<Dictionary<string, object>>();
+            var diccionarioProductosVenta2 = new Dictionary<string, object>(){
+                { "producto", "Mouse"},
+                { "precio", 20.0},
+                { "tiempoGarantia", 15},
+                { "cantidad", 2}
+            };
+
+            listaProductoCantidad2.Add(diccionarioProductosVenta2);
+
+            Ventas venta2 = new Ventas(listaProductoCantidad2, listaVendedores[2], listaCompradores[0]);
+            listaVentas.Add(venta2);
+
+
+            List<Dictionary<string, object>> listaProductoCantidad3 = new List<Dictionary<string, object>>();
+            var diccionarioProductosVenta3 = new Dictionary<string, object>(){
+                { "producto", "Teclado"},
+                { "precio", 30.0},
+                { "tiempoGarantia", 30},
+                { "cantidad", 3}
+            };
+
+            listaProductoCantidad3.Add(diccionarioProductosVenta3);
+
+            Ventas venta3 = new Ventas(listaProductoCantidad3, listaVendedores[1], listaCompradores[2]);
+            listaVentas.Add(venta3);
+
+
+            List<Dictionary<string, object>> listaProductoCantidad4 = new List<Dictionary<string, object>>();
+            var diccionarioProductosVenta4 = new Dictionary<string, object>(){
+                { "producto", "Base"},
+                { "precio", 10.0},
+                { "tiempoGarantia", 20},
+                { "cantidad", 10}
+            };
+
+
+            listaProductoCantidad4.Add(diccionarioProductosVenta4);
+
+            Ventas venta4 = new Ventas(listaProductoCantidad4, listaVendedores[1], listaCompradores[1]);
+            listaVentas.Add(venta4);
+
+
+            List<Dictionary<string, object>> listaProductoCantidad5 = new List<Dictionary<string, object>>();
+            var diccionarioProductosVenta5 = new Dictionary<string, object>(){
+                { "producto", "Mouse"},
+                { "precio", 20.0},
+                { "tiempoGarantia", 15},
+                { "cantidad", 5}
+            };
+
+
+            listaProductoCantidad5.Add(diccionarioProductosVenta5);
+
+            Ventas venta5 = new Ventas(listaProductoCantidad5, listaVendedores[0], listaCompradores[1]);
+            listaVentas.Add(venta5);
+
+
+            List<Dictionary<string, object>> listaProductoCantidad6 = new List<Dictionary<string, object>>();
+            var diccionarioProductosVenta6 = new Dictionary<string, object>(){
+                { "producto", "Mouse"},
+                { "precio", 20.0},
+                { "tiempoGarantia", 15},
+                { "cantidad", 5}
+            };
+
+
+            listaProductoCantidad6.Add(diccionarioProductosVenta6);
+
+            Ventas venta6 = new Ventas(listaProductoCantidad6, listaVendedores[2], listaCompradores[0]);
+            listaVentas.Add(venta6);
+
+        };
+
+        void crearVentas()
         {
             int opcion = 1;
             List<Dictionary<string, object>> listaProductoCantidad = new List<Dictionary<string, object>>();
@@ -168,9 +261,9 @@ Comprador: {venta.comprador.nombre}");
                 {
                     Console.WriteLine($"Producto: {producto["producto"]}, Cantidad: {producto["cantidad"]}");
                 }
+                i++;
             }
             Console.WriteLine("-----------------------------------");
-            i++;
         }
 
         void mostrarMenu()
@@ -205,25 +298,25 @@ Selecciona una opcion --> ");
                 switch (op)
                 {
                     case "1":
-                        crearFactura();
+                        crearVentas();
                         break;
                     case "2":
-                        CalcularValorTotalVenta();
+                        calcularValorTotalVenta();
                         break;
                     case "3":
-                        // CalcularPromedioDiarioVentas(sellSheet);
+                        calcularPromedioDiarioVentas();
                         break;
                     case "4":
-                        // MostrarEmpleadoYClienteDelMes(sellSheet);
+                        mostrarEmpleadoYClienteDelMes();
                         break;
                     case "5":
-                        // FiltrarVentasPorFecha(sellSheet);
+                        filtrarVentasPorFecha();
                         break;
                     case "6":
-                        // VendedoresPorEncimaDelValor(sellSheet);
+                        vendedoresPorEncimaDelValor();
                         break;
                     case "7":
-                        // CalcularTotalVentasMensuales(sellSheet);
+                        calcularTotalVentasMensuales();
                         break;
                     case "8":
                         // EncontrarVendedorTopEnPeriodo(sellSheet);
@@ -261,7 +354,7 @@ Selecciona una opcion --> ");
             } while (op != "15");
         }
 
-        void CalcularValorTotalVenta()
+        void calcularValorTotalVenta()
         {
 
             double valorTotal = 0;
@@ -282,9 +375,151 @@ Selecciona una opcion --> ");
             Console.Clear();
         }
 
+        void calcularPromedioDiarioVentas()
+        {
+
+            double valorTotal = 0;
+
+            for (var i = 0; i < listaVentas.Count(); i++)
+            {
+                var venta = listaVentas[i];
+
+                foreach (var diccionarioProductos in venta.cantidadProductos)
+                {
+                    valorTotal += Convert.ToDouble(diccionarioProductos["precio"]) * Convert.ToInt32(diccionarioProductos["cantidad"]);
+                }
+            }
+            double promedioDiario = valorTotal / listaVentas.Count();
+            Console.WriteLine($"El promedio de las ventas diarias es de ${Math.Round(promedioDiario, 2)}");
+        };
+
+        void mostrarEmpleadoYClienteDelMes()
+        {
+
+            double valorTotal = 0;
+            var empleadoVentas = new List<double>();
+            var clienteVentas = new List<double>();
+
+            foreach (var vendedor in listaVendedores)
+            {
+                foreach (var venta in listaVentas)
+                {
+                    if (vendedor.nombre == venta.vendedor.nombre)
+                    {
+                        foreach (var producto in venta.cantidadProductos)
+                        {
+                            valorTotal += Convert.ToDouble(producto["precio"]) * Convert.ToInt32(producto["cantidad"]);
+                        }
+                    }
+                }
+                empleadoVentas.Add(valorTotal);
+                valorTotal = 0;
+            }
+            var indiceEmpleadoMaximo = empleadoVentas.IndexOf(empleadoVentas.Max());
+            var valorMaximo = empleadoVentas.Max();
+
+            foreach (var comprador in listaCompradores)
+            {
+                foreach (var venta in listaVentas)
+                {
+                    if (comprador.nombre == venta.comprador.nombre)
+                    {
+                        foreach (var producto in venta.cantidadProductos)
+                        {
+                            valorTotal += Convert.ToDouble(producto["precio"]) * Convert.ToInt32(producto["cantidad"]);
+                        }
+                    }
+                }
+                clienteVentas.Add(valorTotal);
+                valorTotal = 0;
+            }
+            var indiceCompradorMaximo = clienteVentas.IndexOf(clienteVentas.Max());
+            var valorMaximoCliente = clienteVentas.Max();
+
+            Console.WriteLine(@$"El comprador que más compró en el mes es: {listaCompradores[indiceCompradorMaximo].nombre} con valor de ${valorMaximoCliente}");
+            Console.WriteLine(@$"El empleado que más vendió en el mes es: {listaVendedores[indiceEmpleadoMaximo].nombre} con valor de ${valorMaximo}");
+        };
+
+        void filtrarVentasPorFecha()
+        {
+            // Solicita la fecha al usuario
+            Console.WriteLine("Ingrese una fecha (formato dd/MM/yyyy): ");
+            string fechaString = Console.ReadLine();
+
+            // Convierte la cadena de fecha a un objeto DateTime
+            DateTime fechaUsuario = DateTime.ParseExact(fechaString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            // Filtra las ventas por la fecha
+            var ventasFiltradas = listaVentas.Where(v => v.fecha.Date > fechaUsuario.Date).ToList();
+
+            // Imprime las ventas filtradas
+            Console.WriteLine("Ventas filtradas por fecha:");
+            Console.WriteLine("-----------------------------------");
+            foreach (var venta in ventasFiltradas)
+            {
+                Console.WriteLine($"Fecha: {venta.fecha.ToShortDateString()}, Vendedor: {venta.vendedor.nombre}, Comprador: {venta.comprador.nombre}");
+            }
+        }
+
+        void vendedoresPorEncimaDelValor()
+        {
+            // Solicita el valor al usuario
+            Console.WriteLine("Ingrese el valor para filtrar los vendedores:");
+            double valorUsuario = Convert.ToDouble(Console.ReadLine());
+
+
+            double valorTotal = 0;
+
+            foreach (var vendedor in listaVendedores)
+            {
+                foreach (var venta in listaVentas)
+                {
+                    if (vendedor.nombre == venta.vendedor.nombre)
+                    {
+                        foreach (var producto in venta.cantidadProductos)
+                        {
+                            valorTotal += Convert.ToDouble(producto["precio"]) * Convert.ToInt32(producto["cantidad"]);
+                        }
+                    }
+                }
+                if (valorTotal > valorUsuario)
+                {
+                    Console.WriteLine($"El vendedor que supera los ${valorUsuario} es {vendedor.nombre}");
+                }
+                valorTotal = 0;
+            }
+        };
+
+        void calcularTotalVentasMensuales()
+        {
+
+            //Agrupar las ventas por mes y calcular el total de ventas mensuales.
+
+            var ventasPorMes = listaVentas.Select(v => v.fecha.Month).ToList();
+            var ventaTotalMes = ventasPorMes.Count();
+
+            Console.WriteLine($"El total de ventas por mes es: {ventaTotalMes}");
+        };
+
+        void encontrarVendedorTopEnPeriodo() 
+        {
+
+            //Encontrar el vendedor con el mayor número de ventas en un período específico.
+            // Solicita la fecha al usuario
+            Console.WriteLine("Ingrese una fecha (formato dd/MM/yyyy): ");
+            string fechaString = Console.ReadLine();
+
+            // Convierte la cadena de fecha a un objeto DateTime
+            DateTime fechaUsuario = DateTime.ParseExact(fechaString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
+        };
+
+
         crearCompradores();
         crearVendedor();
         crearProductos();
+        ventasDefinidas();
         mostrarMenu();
     }
 
